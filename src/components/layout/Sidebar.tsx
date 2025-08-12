@@ -33,21 +33,25 @@ const navigation = [
     description: '15 AI Marketing Agents',
     children: [
       { name: 'All Agents', href: '/agents' },
-      { name: 'Analytics Agent', href: '/agents/analytics' },
+      // Lead Generation Core
       { name: 'Campaign Agent', href: '/agents/campaign' },
+      { name: 'Paid Social Agent', href: '/agents/paidSocial' },
+      { name: 'Email Marketing Agent', href: '/agents/emailMarketing' },
+      { name: 'Retargeting Agent', href: '/agents/retargeting' },
+      // Content & Strategy
       { name: 'Content Agent', href: '/agents/content' },
-      { name: 'Accountability Agent', href: '/agents/accountability' },
-      { name: 'Lead Gen Agent', href: '/agents/lead-generation' },
-      { name: 'Email Agent', href: '/agents/email' },
-      { name: 'Social Media Agent', href: '/agents/social-media' },
-      { name: 'SEO Agent', href: '/agents/seo' },
-      { name: 'PPC Agent', href: '/agents/ppc' },
-      { name: 'CRM Agent', href: '/agents/crm' },
-      { name: 'Research Agent', href: '/agents/research' },
-      { name: 'Brand Agent', href: '/agents/brand' },
-      { name: 'Sales Agent', href: '/agents/sales' },
+      { name: 'Social Agent', href: '/agents/social' },
       { name: 'Strategy Agent', href: '/agents/strategy' },
-      { name: 'Conversion Agent', href: '/agents/conversion' }
+      { name: 'Graphics Agent', href: '/agents/graphics' },
+      // Intelligence & Analytics
+      { name: 'Analytics Agent', href: '/agents/analytics' },
+      { name: 'Dealer Intelligence Agent', href: '/agents/dealerIntelligence' },
+      { name: 'Market Intelligence Agent', href: '/agents/marketIntelligence' },
+      { name: 'Internal Insights Agent', href: '/agents/internalInsights' },
+      // Technical & Operations
+      { name: 'Editor Agent', href: '/agents/editor' },
+      { name: 'Website SEO Agent', href: '/agents/websiteSeo' },
+      { name: 'SEMRush Agent', href: '/agents/semrush' }
     ]
   },
   {
