@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { useDashboardStore } from '@/store/dashboard';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -20,6 +21,7 @@ import {
 import { formatCurrency, formatNumber, formatPercentage, getTimeAgo, getStatusIndicatorColor, getTrendColor, getTrendIcon } from '@/lib/utils';
 
 export default function DashboardPage() {
+  const router = useRouter();
   const {
     systemHealth,
     businessMetrics,
@@ -89,22 +91,22 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="h-full bg-gray-50">
       {/* Header */}
-      <header className="bg-white dark:bg-gray-800 shadow-sm border-b">
+      <header className="bg-white shadow-sm border-b">
         <div className="px-6 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+              <h1 className="text-2xl font-bold text-gray-900">
                 VAN Marketing Intelligence
               </h1>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-sm text-gray-600">
                 Executive Command Center • 15-Agent Marketing System
               </p>
             </div>
             <div className="flex items-center gap-4">
               <div className="text-right">
-                <div className="flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-white">
+                <div className="flex items-center gap-2 text-sm font-medium text-gray-900">
                   <div 
                     className={`status-indicator ${
                       isRealtimeConnected() ? 'bg-green-500' : 'bg-red-500'
@@ -133,7 +135,7 @@ export default function DashboardPage() {
         </div>
       </header>
 
-      <main className="px-6 py-6">
+      <main className="px-6 py-6 overflow-y-auto">
         {/* Critical Alerts */}
         {alerts.length > 0 && (
           <div className="mb-6">
@@ -269,6 +271,7 @@ export default function DashboardPage() {
                       <div
                         key={agent.id}
                         className="agent-card group cursor-pointer hover:shadow-md transition-all"
+                        onClick={() => router.push(`/agents/${agent.id}`)}
                       >
                         <div className="agent-status">
                           <div className="flex items-center gap-2">
@@ -371,61 +374,6 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* EOS Scorecard */}
-        {eosData.scorecard && (
-          <div className="mt-8">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Target className="h-5 w-5" />
-                  EOS Scorecard
-                </CardTitle>
-                <CardDescription>
-                  Key business metrics and performance indicators
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                  {eosData.scorecard.metrics.map((metric) => (
-                    <div
-                      key={metric.name}
-                      className={`p-4 rounded-lg border ${
-                        metric.status === 'green' ? 'border-green-200 bg-green-50' :
-                        metric.status === 'yellow' ? 'border-yellow-200 bg-yellow-50' :
-                        'border-red-200 bg-red-50'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="font-medium text-sm">{metric.name}</span>
-                        <div 
-                          className={`status-indicator ${
-                            metric.status === 'green' ? 'bg-green-500' :
-                            metric.status === 'yellow' ? 'bg-yellow-500' : 'bg-red-500'
-                          }`}
-                        />
-                      </div>
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-lg font-bold">
-                          {metric.actual}
-                          {metric.unit !== 'score' && metric.unit}
-                        </span>
-                        <span className="text-sm text-gray-500">
-                          / {metric.target}{metric.unit !== 'score' && metric.unit}
-                        </span>
-                      </div>
-                      <div className="flex items-center text-xs text-gray-600 mt-1">
-                        <span className={getTrendColor(metric.trend)}>
-                          {getTrendIcon(metric.trend)}
-                        </span>
-                        <span className="ml-1">{metric.trend}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        )}
       </main>
     </div>
   );

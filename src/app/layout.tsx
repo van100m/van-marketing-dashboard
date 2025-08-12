@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -23,10 +24,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full">
-      <body className={`${inter.className} h-full bg-gray-50 dark:bg-gray-900 antialiased`}>
-        <div className="min-h-full">
+      <body className={`${inter.className} h-full bg-gray-50 antialiased`}>
+        <DashboardLayout>
           {children}
-        </div>
+        </DashboardLayout>
       </body>
     </html>
   );
