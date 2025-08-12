@@ -136,7 +136,7 @@ export const useDashboardStore = create<DashboardStore>()(
                 alignmentScore: monitoringData ? Math.min(100, 100 - (monitoringData.response_time / 50)) : 80,
                 effectivenessScore: monitoringData ? (Math.min(100, monitoringData.success_rate + 10) * 0.6 + Math.min(100, 100 - (monitoringData.response_time / 50)) * 0.4) : 82,
                 contributionMetrics: {
-                  leadsGenerated: Math.floor(Math.random() * 100) + 20,
+                  leadsGenerated: agentId === 'campaign' ? Math.floor(Math.random() * 2) + 2 : Math.floor(Math.random() * 100) + 20,
                   conversionRate: Math.random() * 15 + 5,
                   roiContribution: Math.random() * 5 + 2,
                   goalAchievementRate: Math.random() * 40 + 60,
@@ -186,7 +186,7 @@ export const useDashboardStore = create<DashboardStore>()(
                 alignmentScore: 80,
                 effectivenessScore: 82,
                 contributionMetrics: {
-                  leadsGenerated: Math.floor(Math.random() * 100) + 20,
+                  leadsGenerated: agentId === 'campaign' ? Math.floor(Math.random() * 2) + 2 : Math.floor(Math.random() * 100) + 20,
                   conversionRate: Math.random() * 15 + 5,
                   roiContribution: Math.random() * 5 + 2,
                   goalAchievementRate: Math.random() * 40 + 60,
