@@ -60,7 +60,7 @@ export default function AgentsIndexPage() {
     const healthyAgents = layer.agents.filter((a: any) => a.health.healthy).length;
     const totalAgents = layer.agents.length;
     const avgEffectiveness = layer.agents.length > 0 ? 
-      layer.agents.reduce((sum: number, agent: any) => sum + getEffectivenessScore(agent), 0) / totalAgents : 0;
+      Math.round(layer.agents.reduce((sum: number, agent: any) => sum + getEffectivenessScore(agent), 0) / totalAgents) : 0;
     
     return {
       healthyAgents,

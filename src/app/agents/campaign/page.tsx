@@ -44,11 +44,11 @@ export default function CampaignAgentPage() {
               <div className="text-sm text-gray-500">Weekly Target</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-gray-900 dark:text-white">9</div>
+              <div className="text-3xl font-bold text-gray-900 dark:text-white">2</div>
               <div className="text-sm text-gray-500">Current Progress</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-green-600">75%</div>
+              <div className="text-3xl font-bold text-orange-600">17%</div>
               <div className="text-sm text-gray-500">Achievement Rate</div>
             </div>
             <div className="text-center">
