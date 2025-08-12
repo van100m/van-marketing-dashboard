@@ -203,7 +203,7 @@ export default function AgentDetailPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {agent.performance.successRate.toFixed(1)}%
+                {Math.round(agent.performance.successRate)}%
               </div>
               <p className="text-xs text-muted-foreground">
                 Task success rate
@@ -280,7 +280,7 @@ export default function AgentDetailPage() {
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium">Utilization</span>
                     <span className="text-sm text-gray-600">
-                      {agent.performance.utilizationRate.toFixed(1)}%
+                      {Math.round(agent.performance.utilizationRate)}%
                     </span>
                   </div>
                 </CardContent>
@@ -380,7 +380,7 @@ export default function AgentDetailPage() {
                     <div>
                       <div className="flex justify-between text-sm mb-2">
                         <span>Success Rate</span>
-                        <span>{agent.performance.successRate.toFixed(1)}%</span>
+                        <span>{Math.round(agent.performance.successRate)}%</span>
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-2">
                         <div 
@@ -472,7 +472,7 @@ export default function AgentDetailPage() {
                     <div className="p-4 bg-blue-50 rounded-lg">
                       <h4 className="font-semibold text-blue-900 mb-2">Performance Analysis</h4>
                       <p className="text-blue-800 text-sm">
-                        Agent is performing well with a {agent.performance.successRate.toFixed(1)}% success rate.
+                        Agent is performing well with a {Math.round(agent.performance.successRate)}% success rate.
                         Response times are within acceptable ranges.
                       </p>
                     </div>
