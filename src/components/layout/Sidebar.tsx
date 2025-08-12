@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import {
   LayoutDashboard,
@@ -36,7 +36,18 @@ const navigation = [
       { name: 'Analytics Agent', href: '/agents/analytics' },
       { name: 'Campaign Agent', href: '/agents/campaign' },
       { name: 'Content Agent', href: '/agents/content' },
-      { name: 'Accountability Agent', href: '/agents/accountability' }
+      { name: 'Accountability Agent', href: '/agents/accountability' },
+      { name: 'Lead Gen Agent', href: '/agents/lead-generation' },
+      { name: 'Email Agent', href: '/agents/email' },
+      { name: 'Social Media Agent', href: '/agents/social-media' },
+      { name: 'SEO Agent', href: '/agents/seo' },
+      { name: 'PPC Agent', href: '/agents/ppc' },
+      { name: 'CRM Agent', href: '/agents/crm' },
+      { name: 'Research Agent', href: '/agents/research' },
+      { name: 'Brand Agent', href: '/agents/brand' },
+      { name: 'Sales Agent', href: '/agents/sales' },
+      { name: 'Strategy Agent', href: '/agents/strategy' },
+      { name: 'Conversion Agent', href: '/agents/conversion' }
     ]
   },
   {
@@ -154,6 +165,7 @@ export function Sidebar({ className }: SidebarProps) {
                 ) : (
                   <Link
                     href={item.href}
+                    prefetch={true}
                     className={cn(
                       'group flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-gray-50',
                       itemIsActive
@@ -177,6 +189,7 @@ export function Sidebar({ className }: SidebarProps) {
                     <Link
                       key={child.href}
                       href={child.href}
+                      prefetch={true}
                       className={cn(
                         'block rounded-md px-3 py-2 text-sm transition-colors hover:bg-gray-50',
                         pathname === child.href || pathname.startsWith(child.href)

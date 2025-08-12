@@ -31,7 +31,7 @@ interface DashboardStore extends DashboardState {
   updateFilters: (filters: Partial<DashboardFilters>) => void;
   dismissAlert: (alertId: string) => Promise<void>;
   acknowledgeAlert: (alertId: string) => Promise<void>;
-  refreshAllData: () => Promise<void>;
+  refreshAllData: (force?: boolean) => Promise<void>;
   
   // Real-time connection management  
   connectRealtime: () => Promise<void>;
@@ -71,6 +71,10 @@ const initialState: DashboardState = {
   isLoading: false,
   error: null,
 };
+
+// Cache management - 30 seconds cache
+const CACHE_DURATION = 30 * 1000; // 30 seconds
+let lastFetchTime = 0;
 
 // Store for real-time event handlers to clean up on unmount
 let realtimeUnsubscribers: Array<() => void> = [];
@@ -548,11 +552,21 @@ export const useDashboardStore = create<DashboardStore>()(
         }
       },
 
-      refreshAllData: async () => {
+      refreshAllData: async (force = false) => {
         try {
+          const now = Date.now();
+          const state = get();
+          
+          // Check cache - if we have recent data and not forced, skip
+          if (!force && lastFetchTime && (now - lastFetchTime) < CACHE_DURATION && state.agents.length > 0) {
+            console.log('📦 Using cached dashboard data');
+            return;
+          }
+          
           set({ isLoading: true, error: null });
           
-          const state = get();
+          // Update last fetch time
+          lastFetchTime = now;
           
           // Sync agent metrics before refreshing dashboard data
           await analyticsAPI.syncAgentMetrics();
@@ -567,7 +581,8 @@ export const useDashboardStore = create<DashboardStore>()(
             state.fetchEOSData(),
           ]);
           
-          set({ isLoading: false });
+          set({ isLoading: false, lastUpdated: new Date().toISOString() });
+          console.log('✅ Dashboard data refreshed');
           
         } catch (error) {
           console.error('Failed to refresh all data:', error);

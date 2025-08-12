@@ -80,7 +80,7 @@ export default function DashboardPage() {
             <CardDescription>{error}</CardDescription>
           </CardHeader>
           <CardContent>
-            <Button onClick={refreshAllData} className="w-full">
+            <Button onClick={() => refreshAllData(true)} className="w-full">
               <RefreshCw className="mr-2 h-4 w-4" />
               Retry
             </Button>
@@ -121,7 +121,7 @@ export default function DashboardPage() {
                 </div>
               </div>
               <Button 
-                onClick={refreshAllData} 
+                onClick={() => refreshAllData(true)} 
                 disabled={isLoading}
                 variant="outline"
                 size="sm"
@@ -296,7 +296,7 @@ export default function DashboardPage() {
                           </div>
                           <div className="flex justify-between">
                             <span>Success Rate:</span>
-                            <span>{formatPercentage(agent.performance.successRate)}</span>
+                            <span>{Math.round(agent.performance.successRate * 100)}%</span>
                           </div>
                           <div className="flex justify-between">
                             <span>Optimization:</span>
