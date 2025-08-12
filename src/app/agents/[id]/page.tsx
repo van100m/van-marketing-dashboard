@@ -34,12 +34,21 @@ export default function AgentDetailPage() {
     refreshAgent,
     getAgentInsights,
     isLoading,
+    refreshAllData,
   } = useDashboardStore();
 
   const [insights, setInsights] = useState<any>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const agent = agents.find(a => a.id === agentId);
+
+  useEffect(() => {
+    // Initialize agents if not loaded
+    if (agents.length === 0) {
+      console.log('🔄 Loading agents for agent detail page...');
+      refreshAllData();
+    }
+  }, [agents.length, refreshAllData]);
 
   useEffect(() => {
     if (agentId) {
@@ -69,14 +78,43 @@ export default function AgentDetailPage() {
   };
 
   if (!agent) {
+    // Show loading state if agents are still being fetched
+    if (isLoading || agents.length === 0) {
+      return (
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+          <Card className="w-full max-w-md">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <RefreshCw className="h-5 w-5 animate-spin" />
+                Loading Agent...
+              </CardTitle>
+              <CardDescription>Please wait while we load the agent information.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="text-center py-4">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Loading {agentId} agent data...
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      );
+    }
+    
+    // Show not found only if agents are loaded but agent doesn't exist
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle>Agent Not Found</CardTitle>
-            <CardDescription>The requested agent could not be found.</CardDescription>
+            <CardDescription>The requested agent "{agentId}" could not be found.</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="space-y-4">
+            <Button onClick={() => refreshAllData(true)} className="w-full" variant="outline">
+              <RefreshCw className="mr-2 h-4 w-4" />
+              Retry Loading Agents
+            </Button>
             <Link href="/agents">
               <Button className="w-full">
                 <ArrowLeft className="mr-2 h-4 w-4" />
