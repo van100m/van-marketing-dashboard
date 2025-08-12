@@ -304,7 +304,7 @@ export const useDashboardStore = create<DashboardStore>()(
               id: 'cpu-alert',
               type: 'critical',
               title: 'High CPU Usage',
-              message: `CPU usage at ${systemStatus.cpu_usage.toFixed(1)}%`,
+              message: `CPU usage at ${Math.round(systemStatus.cpu_usage)}%`,
               timestamp: new Date().toISOString(),
               acknowledged: false
             });
@@ -315,7 +315,7 @@ export const useDashboardStore = create<DashboardStore>()(
               id: 'error-rate-alert',
               type: 'warning',
               title: 'High Error Rate',
-              message: `Error rate at ${systemStatus.error_rate.toFixed(2)}%`,
+              message: `Error rate at ${Math.round(systemStatus.error_rate)}%`,
               timestamp: new Date().toISOString(),
               acknowledged: false
             });
@@ -409,7 +409,7 @@ export const useDashboardStore = create<DashboardStore>()(
             mockIssues.push({
               id: '1',
               title: 'Low campaign ROI performance',
-              description: `Average ROI is ${campaignSummary.avgROI.toFixed(2)}, below target of 2.0`,
+              description: `Average ROI is ${Math.round(campaignSummary.avgROI)}, below target of 2`,
               owner: 'campaign',
               priority: 'high',
               status: 'open',
@@ -422,7 +422,7 @@ export const useDashboardStore = create<DashboardStore>()(
             mockIssues.push({
               id: '2',
               title: 'Budget utilization high',
-              description: `${((campaignSummary.totalSpent / campaignSummary.totalBudget) * 100).toFixed(1)}% of budget used`,
+              description: `${Math.round((campaignSummary.totalSpent / campaignSummary.totalBudget) * 100)}% of budget used`,
               owner: 'campaign',
               priority: 'medium',
               status: 'in_progress',

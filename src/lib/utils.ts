@@ -17,7 +17,7 @@ export function formatNumber(num: number): string {
 }
 
 export function formatPercentage(num: number): string {
-  return `${num.toFixed(1)}%`
+  return `${Math.round(num)}%`
 }
 
 export function formatDuration(ms: number): string {

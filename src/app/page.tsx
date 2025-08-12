@@ -239,7 +239,7 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {businessMetrics ? `${businessMetrics.revenue.roi.toFixed(1)}x` : '---'}
+                {businessMetrics ? `${Math.round(businessMetrics.revenue.roi)}x` : '---'}
               </div>
               <div className="flex items-center text-xs text-muted-foreground">
                 <span className={getTrendColor(businessMetrics?.revenue.trend || 'stable')}>
